@@ -169,7 +169,7 @@ const BuildingExplorer = () => {
     // Load cloud texture and create clouds
     const textureLoader = new THREE.TextureLoader()
     textureLoader.load(
-      'https://mrdoob.com/lab/javascript/webgl/clouds/cloud10.png',
+      '/cloud10.png',
       (texture) => {
         createClouds(texture, scene)
       }
