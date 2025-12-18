@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Cloud Fly-through — Natural Distance → Arrival</title>
+
+  <!-- Preload building so it never pops due to late decode -->
+  <link rel="preload" as="image" href="https://wordpress-1188165-5928879.cloudwaysapps.com/3js/1743602009-og-image.jpg"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html.lenis,html.lenis body{height:auto}
+    .lenis.lenis-smooth{scroll-behavior:auto!important}
+    body{font-family:"Inter",sans-serif;color:#fff;min-height:100vh;background:#152538}
+
+    /* BUILDING BEHIND CLOUDS */
+    #building_image{
+      position:fixed;top:50%;left:50%;
+      transform:translate(-50%,-50%) scale(0.05);  /* << start very far away */
+      transform-origin:center center;
+      width:220vw;height:220vh;object-fit:cover;   /* keep oversized to avoid edge peeking */
+      z-index:1;opacity:0.3;pointer-events:none;will-change:transform,opacity,filter;
+      filter:blur(12px) brightness(0.7);           /* << heavy atmospheric haze when far */
+    }
+
+    /* CLOUDS IN FRONT (fade out near the end) */
+    #cloud_container{
+      position:fixed;inset:0;width:100%;height:100%;
+      z-index:3;pointer-events:none;opacity:1;will-change:opacity;
+      background:linear-gradient(to bottom,#1e4877 0%,#4584b4 50%,#87ceeb 100%);
+    }
+    canvas{display:block;width:100%;height:100%}
+    .loading{
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      color:#fff;font:16px/1 Arial, sans-serif;text-shadow:0 2px 4px rgba(0,0,0,.3);z-index:10;
+    }
+
+    /* Minimal UI */
+    .scroll-content{position:relative;z-index:10;pointer-events:none}
+    .scroll-content button{pointer-events:auto}
+    .hero{min-height:100vh;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;text-align:center;padding:0 24px}
+    .title{font-size:clamp(36px,7vw,72px);font-weight:700;letter-spacing:-.02em;text-shadow:0 10px 40px rgba(0,0,0,.5)}
+    .subtitle{font-size:clamp(14px,2.2vw,22px);opacity:.92;text-shadow:0 6px 24px rgba(0,0,0,.45)}
+    .btn{margin-top:18px;padding:16px 28px;border-radius:999px;border:2px solid rgba(255,255,255,.35);
+         background:rgba(255,255,255,.12);backdrop-filter:blur(12px);
+         color:#fff;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  </style>
+</head>
+<body>
+  <!-- Building (BEHIND clouds) -->
+  <img id="building_image"
+       src="https://wordpress-1188165-5928879.cloudwaysapps.com/3js/1743602009-og-image.jpg"
+       alt="Building" decoding="sync" fetchpriority="high"/>
+
+  <!-- Clouds (FRONT) -->
+  <div id="cloud_container">
+    <div class="loading" id="loading_text">Loading clouds…</div>
+  </div>
+
+  <!-- UI -->
+  <div class="scroll-content">
+    <section class="hero">
+      <h1 class="title">Lorem ipsum dolor sit amet</h1>
+      <p class="subtitle">Fly through the clouds. Arrive without a pop.</p>
+      <button id="btnExperience" class="btn">Experiences</button>
+    </section>
+  </div>
+
+  <!-- libs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/BufferGeometryUtils.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+  <script>
+    /* ===== Tunables (match main file feel) ===== */
+    const ZOOM_DURATION     = 18;      // seconds total
+    const CAMERA_START_Z    = 6000;
+    const CAMERA_END_Z      = 200;     // lower => closer finish
+    const BUILD_MIN_SCALE   = 0.05;    // << start very tiny (far away in distance)
+    const BUILD_MAX_SCALE   = 1.42;    // finish size
+
+    const BUILD_FADE_START  = 0.0;     // visible from the very start (tiny)
+    const BUILD_FADE_END    = 0.60;    // gradually fade in to full opacity
+
+    const CLOUDS_FADE_START = 0.65;    // keep clouds longer
+    const CLOUDS_FADE_END   = 1.00;
+
+    const START_BLUR        = 12;      // px blur when far (heavy atmosphere)
+    const END_BLUR          = 0;
+
+    /* Smooth page scroll nicety (not used for zoom) */
+    const lenis = new Lenis({
+      duration:1.0,
+      easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),
+      smoothWheel:true, wheelMultiplier:1, touchMultiplier:1, syncTouch:true
+    });
+    function raf(t){ lenis.raf(t); requestAnimationFrame(raf) }
+    requestAnimationFrame(raf);
+
+    class CloudScene {
+      constructor(){
+        this.scene=null; this.camera=null; this.renderer=null;
+        this.mouseX=0; this.mouseY=0; this.whx=innerWidth/2; this.why=innerHeight/2;
+        this.cloudDrift=0.03; this.t0=Date.now(); this.req=null;
+        this.progress=0;  // 0→1
+        this.animating=false; this.tStart=0;
+
+        this.build = document.getElementById('building_image');
+        this.cloudWrap = document.getElementById('cloud_container');
+
+        this.init();
+      }
+      ease(t){ return t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+      smoothstep(t){ return t*t*(3-2*t); } // for opacity ramps
+
+      init(){
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(30, innerWidth/innerHeight, 1, 3000);
+        this.camera.position.z = CAMERA_START_Z;
+        this.renderer = new THREE.WebGLRenderer({antialias:false, alpha:true});
+        this.renderer.setSize(innerWidth, innerHeight);
+        document.getElementById('cloud_container').appendChild(this.renderer.domElement);
+
+        new THREE.TextureLoader().load(
+          "https://mrdoob.com/lab/javascript/webgl/clouds/cloud10.png",
+          (tex)=>this.setupClouds(tex),
+          undefined,
+          (e)=>console.error('cloud texture error', e)
+        );
+
+        addEventListener('mousemove', e=>{ this.mouseX=(e.clientX-this.whx)*0.25; this.mouseY=(e.clientY-this.why)*0.15; });
+        addEventListener('resize', ()=>{ this.whx=innerWidth/2; this.why=innerHeight/2; this.camera.aspect=innerWidth/innerHeight; this.camera.updateProjectionMatrix(); this.renderer.setSize(innerWidth,innerHeight); });
+
+        document.getElementById('btnExperience').addEventListener('click', ()=>{
+          if (this.animating) return;
+          this.animating = true;
+          this.tStart = Date.now();
+        });
+      }
+
+      setupClouds(texture){
+        const fog = new THREE.Fog(0x4584b4,-100,3000);
+        this.scene.fog=fog;
+        texture.magFilter=THREE.LinearFilter;
+        texture.minFilter=THREE.LinearMipmapLinearFilter;
+
+        const material = new THREE.ShaderMaterial({
+          uniforms:{ map:{value:texture}, fogColor:{value:fog.color}, fogNear:{value:fog.near}, fogFar:{value:fog.far} },
+          vertexShader:`varying vec2 vUv;void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
+          fragmentShader:`uniform sampler2D map;uniform vec3 fogColor;uniform float fogNear;uniform float fogFar;varying vec2 vUv;void main(){ float d=gl_FragCoord.z/gl_FragCoord.w; float f=smoothstep(fogNear,fogFar,d); gl_FragColor=texture2D(map,vUv); gl_FragColor.w*=pow(gl_FragCoord.z,20.0); gl_FragColor=mix(gl_FragColor, vec4(fogColor, gl_FragColor.w), f); }`,
+          depthWrite:false, depthTest:false, transparent:true
+        });
+
+        const plane=new THREE.PlaneGeometry(64,64), o=new THREE.Object3D(), geos=[];
+        for(let i=0;i<8000;i++){
+          o.position.x=Math.random()*1000-500;
+          o.position.y=-Math.random()*Math.random()*200-15;
+          o.position.z=i;
+          o.rotation.z=Math.random()*Math.PI;
+          o.scale.x=o.scale.y=Math.random()*Math.random()*1.5+0.5;
+          o.updateMatrix();
+          const g=plane.clone(); g.applyMatrix4(o.matrix); geos.push(g);
+        }
+        const merged=THREE.BufferGeometryUtils.mergeBufferGeometries(geos);
+        const m1=new THREE.Mesh(merged,material); m1.renderOrder=2;
+        const m2=m1.clone(); m2.position.z=-8000; m2.renderOrder=1;
+        this.scene.add(m1); this.scene.add(m2);
+
+        document.getElementById('loading_text').style.display='none';
+        this.loop();
+      }
+
+      loop(){
+        this.req=requestAnimationFrame(()=>this.loop());
+
+        const drift=((Date.now()-this.t0)*this.cloudDrift)%8000;
+
+        // Advance progress if animating
+        if(this.animating){
+          const elapsed=(Date.now()-this.tStart)/1000;
+          this.progress=Math.min(elapsed/ZOOM_DURATION,1);
+        }
+
+        const eased=this.ease(this.progress);
+        const camZ = CAMERA_START_Z - eased*(CAMERA_START_Z - CAMERA_END_Z);
+
+        // ---- Building (behind): opacity, scale, de-haze ----
+        if(this.build){
+          // Opacity ramp from 0.3 (distant, hazy) to 1.0 (clear, close)
+          let o=0.3;  // start visible but faint
+          if(this.progress>=BUILD_FADE_START){
+            const t0=(this.progress-BUILD_FADE_START)/(BUILD_FADE_END-BUILD_FADE_START);
+            const t=Math.max(0,Math.min(1,t0));
+            o=0.3 + (0.7 * this.smoothstep(t));  // 0.3 → 1.0
+          }
+          if(this.progress>BUILD_FADE_END) o=1;
+          this.build.style.opacity=o;
+
+          // Scale from tiny → final
+          const scale = BUILD_MIN_SCALE + (BUILD_MAX_SCALE - BUILD_MIN_SCALE)*eased;
+          this.build.style.transform=`translate(-50%,-50%) scale(${scale})`;
+
+          // De-haze (blur 12px→0)
+          const blur = START_BLUR + (END_BLUR - START_BLUR)*eased;
+          // Brightness lift as we arrive (from hazy 0.7 to clear 1.0)
+          const bright = 0.7 + 0.3*eased;
+          this.build.style.filter=`blur(${blur}px) brightness(${bright})`;
+
+          // No CSS easing – JS owns timing
+          this.build.style.transition='transform 0s, opacity 0s, filter 0s';
+        }
+
+        // ---- Clouds (front): fade out late so reveal feels gradual, not a sudden cut ----
+        if(this.cloudWrap){
+          let c=1;
+          if(this.progress>=CLOUDS_FADE_START){
+            const t0=(this.progress-CLOUDS_FADE_START)/(CLOUDS_FADE_END-CLOUDS_FADE_START);
+            const t=Math.max(0,Math.min(1,t0));
+            c=1-this.smoothstep(t); // 1 → 0
+          }
+          this.cloudWrap.style.opacity=c;
+        }
+
+        // Subtle parallax
+        this.camera.position.x += (this.mouseX - this.camera.position.x)*0.01;
+        this.camera.position.y += (-this.mouseY - this.camera.position.y)*0.01;
+
+        // Combine drift + zoom
+        this.camera.position.z = -drift + camZ;
+
+        this.renderer.render(this.scene,this.camera);
+      }
+    }
+
+    // Boot
+    const cloudScene = new CloudScene();
+    document.getElementById('btnExperience').addEventListener('click', ()=>{
+      // nothing else; CloudScene handles the timeline
+    });
+  </script>
+</body>
+</html>

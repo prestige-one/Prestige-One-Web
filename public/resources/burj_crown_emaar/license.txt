@@ -1,0 +1,11 @@
+Model Information:
+* title:	Burj Crown emaar - Dubai
+* source:	https://sketchfab.com/3d-models/burj-crown-emaar-dubai-8e4751866dbc4b44b6b9a18c94969b76
+* author:	Alnazir (https://sketchfab.com/Nzr.3d)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Burj Crown emaar - Dubai" (https://sketchfab.com/3d-models/burj-crown-emaar-dubai-8e4751866dbc4b44b6b9a18c94969b76) by Alnazir (https://sketchfab.com/Nzr.3d) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

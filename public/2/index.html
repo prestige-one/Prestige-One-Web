@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadplex 80 | Above The Clouds</title>
+    <meta name="description" content="Resting atop 111 West 57th, Quadplex 80 is the premier luxury penthouse in Manhattan. Rise above the hustle and bustle of the city and escape to your private sanctuary in the clouds.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1 class="loading-title">Prestige</h1>
+            <div class="loading-spinner"></div>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loading-progress"></div>
+            </div>
+            <p class="loading-text" id="loading-text">Loading Experience... 0%</p>
+        </div>
+    </div>
+
+    <!-- Three.js Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Enter Experience Overlay -->
+    <div id="enter-overlay" class="hidden">
+        <div class="hero-content">
+            <h1 class="hero-title">Above The Clouds</h1>
+            <p class="hero-subtitle">Rise above the hustle and bustle of the city and escape to your private sanctuary in the clouds. Experience a world of endless horizons.</p>
+            <button id="enter-btn" class="enter-btn">
+                <span>Enter Experience</span>
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scrollable Content Sections -->
+    <div id="content-sections">
+        <section class="content-section section-1">
+            <div class="section-content">
+                <h2 class="section-title">Endless Horizons</h2>
+                <p class="section-text">Experience a world where the sky meets luxury. Your private sanctuary awaits above the clouds, offering unparalleled views and serenity that transcend the ordinary.</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🏙️</div>
+                        <h3>Panoramic Views</h3>
+                        <p>360-degree vistas of the Manhattan skyline and beyond</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h3>Premium Finishes</h3>
+                        <p>Meticulously crafted interiors with the finest materials</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌅</div>
+                        <h3>Sky-High Living</h3>
+                        <p>Elevated lifestyle at its absolute finest</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section section-2">
+            <div class="section-content">
+                <h2 class="section-title">Architectural Excellence</h2>
+                <p class="section-text">A masterpiece of modern design, where form meets function in perfect harmony. Every detail has been carefully considered to create an unmatched living experience at 111 West 57th Street.</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">80+</div>
+                        <div class="stat-label">Floors Above</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">360°</div>
+                        <div class="stat-label">Panoramic Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Possibilities</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section section-3">
+            <div class="section-content">
+                <h2 class="section-title">Your Sanctuary Awaits</h2>
+                <p class="section-text">Step into a world of refined elegance and tranquility. This is more than a residence—it's a lifestyle elevated to new heights, where every moment is an experience in luxury.</p>
+                <button class="cta-btn">Schedule a Private Tour</button>
+            </div>
+        </section>
+
+        <footer class="footer-section">
+            <div class="footer-content">
+                <p class="footer-text">Quadplex 80 | 111 West 57th Street, Manhattan</p>
+                <p class="footer-contact">For inquiries: <a href="mailto:info@111w57.com">info@111w57.com</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Three.js and Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

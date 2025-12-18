@@ -1,0 +1,304 @@
+[00:00:03.282] Server  LOG      ✓ Ready in 2.3s
+[00:00:06.510] Server  LOG      ○ Compiling / ...
+[00:00:14.308] Browser ERROR   Failed to load building 1: {}
+[00:00:15.177] Browser ERROR   Failed to load building 2: {}
+[00:00:15.177] Browser ERROR   Failed to load building 3: {}
+[00:00:15.177] Browser ERROR   Failed to load building 4: {}
+[00:00:15.177] Browser ERROR   Failed to load building 5: {}
+[00:00:15.177] Browser ERROR   Failed to load building 6: {}
+[00:00:15.178] Browser ERROR   Failed to load building 7: {}
+[00:00:15.178] Browser ERROR   Failed to load building 8: {}
+[00:00:15.178] Browser ERROR   Failed to load building 9: {}
+[00:00:15.178] Browser ERROR   Failed to load building 10: {}
+[00:00:15.178] Browser ERROR   Failed to load building 11: {}
+[00:02:56.692] Server  LOG      ✓ Compiled in 165ms
+[00:03:12.949] Server  LOG      ✓ Compiled in 32ms
+[00:03:33.479] Server  LOG      ✓ Compiled in 65ms
+[00:03:47.933] Server  LOG      ✓ Compiled in 34ms
+[00:04:03.780] Server  LOG      ✓ Compiled in 61ms
+[00:04:04.947] Browser ERROR   ✗ Failed to load building 1 (The VISTA): {}
+[00:04:04.947] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf
+[00:04:04.947] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.273] Browser ERROR   ✗ Failed to load building 2 (Golf Place): {}
+[00:04:05.273] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf
+[00:04:05.273] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.273] Browser ERROR   ✗ Failed to load building 3 (Berkeley Square North): {}
+[00:04:05.273] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.273] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.273] Browser ERROR   ✗ Failed to load building 4 (Berkeley Square South): {}
+[00:04:05.273] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.273] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.754] Browser ERROR   ✗ Failed to load building 5 (The Hilton Residence): {}
+[00:04:05.754] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.754] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.754] Browser ERROR   ✗ Failed to load building 6 (The PLACE): {}
+[00:04:05.754] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.754] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.754] Browser ERROR   ✗ Failed to load building 7 (The ONE): {}
+[00:04:05.754] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.754] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.754] Browser ERROR   ✗ Failed to load building 8 (The Parkway): {}
+[00:04:05.754] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.754] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.754] Browser ERROR   ✗ Failed to load building 9 (The Palm Jumeirah): {}
+[00:04:05.754] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.754] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.754] Browser ERROR   ✗ Failed to load building 10 (The JVC): {}
+[00:04:05.754] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.754] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:04:05.754] Browser ERROR   ✗ Failed to load building 11 (The Seaside): {}
+[00:04:05.754] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:04:05.754] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:55.410] Browser ERROR   ✗ Failed to load building 1 (The VISTA): {}
+[00:08:55.410] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf
+[00:08:55.410] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.003] Browser ERROR   ✗ Failed to load building 2 (Golf Place): {}
+[00:08:56.003] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf
+[00:08:56.003] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.003] Browser ERROR   ✗ Failed to load building 3 (Berkeley Square North): {}
+[00:08:56.003] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.003] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.003] Browser ERROR   ✗ Failed to load building 4 (Berkeley Square South): {}
+[00:08:56.003] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.003] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.003] Browser ERROR   ✗ Failed to load building 5 (The Hilton Residence): {}
+[00:08:56.003] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.003] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.003] Browser ERROR   ✗ Failed to load building 6 (The PLACE): {}
+[00:08:56.004] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.004] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.004] Browser ERROR   ✗ Failed to load building 7 (The ONE): {}
+[00:08:56.004] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.004] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.004] Browser ERROR   ✗ Failed to load building 8 (The Parkway): {}
+[00:08:56.004] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.004] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.004] Browser ERROR   ✗ Failed to load building 9 (The Palm Jumeirah): {}
+[00:08:56.004] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.004] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.004] Browser ERROR   ✗ Failed to load building 10 (The JVC): {}
+[00:08:56.004] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.004] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:08:56.004] Browser ERROR   ✗ Failed to load building 11 (The Seaside): {}
+[00:08:56.004] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:08:56.004] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.375] Browser ERROR   ✗ Failed to load building 1 (The VISTA): {}
+[00:09:04.375] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf
+[00:09:04.375] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 2 (Golf Place): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 3 (Berkeley Square North): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 4 (Berkeley Square South): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 5 (The Hilton Residence): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 6 (The PLACE): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 7 (The ONE): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 8 (The Parkway): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 9 (The Palm Jumeirah): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 10 (The JVC): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:04.913] Browser ERROR   ✗ Failed to load building 11 (The Seaside): {}
+[00:09:04.913] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:04.913] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:55.948] Browser ERROR   ✗ Failed to load building 1 (The VISTA): {}
+[00:09:55.948] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf
+[00:09:55.948] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 2 (Golf Place): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 3 (Berkeley Square North): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 4 (Berkeley Square South): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 5 (The Hilton Residence): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 6 (The PLACE): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 7 (The ONE): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 8 (The Parkway): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 9 (The Palm Jumeirah): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 10 (The JVC): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:09:56.621] Browser ERROR   ✗ Failed to load building 11 (The Seaside): {}
+[00:09:56.621] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:09:56.621] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.442] Browser ERROR   ✗ Failed to load building 1 (The VISTA): {}
+[00:11:54.442] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf
+[00:11:54.442] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 2 (Golf Place): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 3 (Berkeley Square North): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 4 (Berkeley Square South): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 5 (The Hilton Residence): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 6 (The PLACE): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 7 (The ONE): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 8 (The Parkway): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 9 (The Palm Jumeirah): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:54.963] Browser ERROR   ✗ Failed to load building 10 (The JVC): {}
+[00:11:54.963] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:54.963] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:11:55.080] Browser ERROR   ✗ Failed to load building 11 (The Seaside): {}
+[00:11:55.080] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:11:55.080] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:05.715] Browser ERROR   ✗ Failed to load building 1 (The VISTA): {}
+[00:12:05.715] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf
+[00:12:05.715] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 2 (Golf Place): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf
+[00:12:06.316] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 3 (Berkeley Square North): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.316] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 4 (Berkeley Square South): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.316] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 5 (The Hilton Residence): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.316] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 6 (The PLACE): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.316] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 7 (The ONE): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.316] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 8 (The Parkway): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.316] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 9 (The Palm Jumeirah): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.316] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.316] Browser ERROR   ✗ Failed to load building 10 (The JVC): {}
+[00:12:06.316] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.317] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[00:12:06.317] Browser ERROR   ✗ Failed to load building 11 (The Seaside): {}
+[00:12:06.317] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[00:12:06.317] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:00.777] Browser ERROR   ✗ Failed to load building 1 (The VISTA): {}
+[01:15:00.778] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf
+[01:15:00.778] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.197] Browser ERROR   ✗ Failed to load building 2 (Golf Place): {}
+[01:15:01.197] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf
+[01:15:01.197] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.197] Browser ERROR   ✗ Failed to load building 3 (Berkeley Square North): {}
+[01:15:01.197] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.197] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.197] Browser ERROR   ✗ Failed to load building 4 (Berkeley Square South): {}
+[01:15:01.197] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.197] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.197] Browser ERROR   ✗ Failed to load building 5 (The Hilton Residence): {}
+[01:15:01.197] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.197] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.197] Browser ERROR   ✗ Failed to load building 6 (The PLACE): {}
+[01:15:01.197] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.197] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.197] Browser ERROR   ✗ Failed to load building 7 (The ONE): {}
+[01:15:01.197] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.197] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.402] Browser ERROR   ✗ Failed to load building 8 (The Parkway): {}
+[01:15:01.402] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.402] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.402] Browser ERROR   ✗ Failed to load building 9 (The Palm Jumeirah): {}
+[01:15:01.402] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.402] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.402] Browser ERROR   ✗ Failed to load building 10 (The JVC): {}
+[01:15:01.402] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.402] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:01.402] Browser ERROR   ✗ Failed to load building 11 (The Seaside): {}
+[01:15:01.402] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:01.402] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:16.587] Browser ERROR   ✗ Failed to load building 1 (The VISTA): {}
+[01:15:16.587] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf
+[01:15:16.587] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 2 (Golf Place): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 3 (Berkeley Square North): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 4 (Berkeley Square South): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 5 (The Hilton Residence): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 6 (The PLACE): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 7 (The ONE): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 8 (The Parkway): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 9 (The Palm Jumeirah): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 10 (The JVC): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:15:17.222] Browser ERROR   ✗ Failed to load building 11 (The Seaside): {}
+[01:15:17.222] Browser ERROR     URL: https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf
+[01:15:17.222] Browser ERROR     This may be due to CORS restrictions. Check server CORS headers.
+[01:20:31.438] Server  LOG      ✓ Compiled in 389ms
+[01:21:04.468] Server  LOG      ✓ Compiled in 207ms
+[01:24:32.065] Browser LOG     ✓ Building 1 (The VISTA) loaded successfully
+[01:24:45.822] Browser LOG     ✓ Building 2 (Golf Place) loaded successfully
+[01:24:53.676] Browser LOG     ✓ Building 3 (Berkeley Square North) loaded successfully
+[01:24:53.676] Browser LOG     ✓ Building 4 (Berkeley Square South) loaded successfully
+[01:24:58.817] Browser LOG     ✓ Building 5 (The Hilton Residence) loaded successfully
+[01:24:58.817] Browser LOG     ✓ Building 6 (The PLACE) loaded successfully
+[01:24:58.817] Browser LOG     ✓ Building 7 (The ONE) loaded successfully
+[01:24:58.817] Browser LOG     ✓ Building 8 (The Parkway) loaded successfully
+[01:25:04.144] Browser LOG     ✓ Building 1 (The VISTA) loaded successfully
+[01:25:11.108] Browser LOG     ✓ Building 1 (The VISTA) loaded successfully
+[01:25:19.743] Browser LOG     ✓ Building 2 (Golf Place) loaded successfully
+[01:25:23.148] Browser LOG     ✓ Building 3 (Berkeley Square North) loaded successfully
+[01:25:27.825] Browser LOG     ✓ Building 4 (Berkeley Square South) loaded successfully
+[01:25:29.074] Browser LOG     ✓ Building 5 (The Hilton Residence) loaded successfully
+[01:25:30.743] Browser LOG     ✓ Building 6 (The PLACE) loaded successfully
+[01:25:32.601] Browser LOG     ✓ Building 7 (The ONE) loaded successfully
+[01:25:34.212] Browser LOG     ✓ Building 8 (The Parkway) loaded successfully
+[01:25:35.610] Browser LOG     ✓ Building 9 (The Palm Jumeirah) loaded successfully
+[01:25:37.372] Browser LOG     ✓ Building 10 (The JVC) loaded successfully
+[01:25:38.521] Browser LOG     ✓ Building 11 (The Seaside) loaded successfully

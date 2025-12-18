@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Experience - Above the Clouds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: #000;
+        }
+
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        #loading.hidden {
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 2s;
+            pointer-events: none;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .title.visible {
+            opacity: 1;
+        }
+
+        .subtitle {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 2s;
+            pointer-events: none;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .subtitle.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="loading">Loading Experience...</div>
+    <div class="title" id="title">ABOVE THE CLOUDS</div>
+    <div class="subtitle" id="subtitle">Your Sanctuary In The Sky</div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Fog for atmospheric depth - softer blue sky color
+        scene.fog = new THREE.FogExp2(0xb0d4f1, 0.018);
+        scene.background = new THREE.Color(0xb0d4f1);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(50, 100, 50);
+        scene.add(directionalLight);
+
+        // Create cloud particles
+        const cloudParticles = [];
+        const cloudCount = 2000; // Optimized count for better performance
+
+        // Create shared cloud textures (reuse instead of creating 10k unique ones)
+        const cloudTextures = [];
+        const textureVariants = 5; // Create only 5 different textures and reuse them
+
+        // Cloud texture function (using canvas to create soft circle)
+        function createCloudTexture(variant = 0) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+
+            // Create multiple gradient patterns for variety
+            const centerX = 64 + (Math.random() - 0.5) * 20;
+            const centerY = 64 + (Math.random() - 0.5) * 20;
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 64);
+
+            const intensity = 0.6 + Math.random() * 0.3;
+            gradient.addColorStop(0, `rgba(255,255,255,${intensity})`);
+            gradient.addColorStop(0.4, `rgba(255,255,255,${intensity * 0.5})`);
+            gradient.addColorStop(1, 'rgba(255,255,255,0)');
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 128, 128);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            return texture;
+        }
+
+        // Pre-create a small set of textures to reuse
+        for (let i = 0; i < textureVariants; i++) {
+            cloudTextures.push(createCloudTexture(i));
+        }
+
+        // Create cloud particles with multiple layers
+        for (let i = 0; i < cloudCount; i++) {
+            // Reuse one of the pre-created textures
+            const cloudTexture = cloudTextures[i % textureVariants];
+
+            const material = new THREE.SpriteMaterial({
+                map: cloudTexture,
+                transparent: true,
+                opacity: Math.random() * 0.4 + 0.2,
+                color: 0xffffff,
+                blending: THREE.AdditiveBlending
+            });
+
+            const sprite = new THREE.Sprite(material);
+
+            // Position clouds randomly in much larger volume
+            sprite.position.x = Math.random() * 400 - 200;
+            sprite.position.y = Math.random() * 200 - 50;
+            sprite.position.z = Math.random() * -1200 - 50; // Spread clouds much deeper
+
+            const scale = Math.random() * 25 + 8;
+            sprite.scale.set(scale, scale, 1);
+
+            // Store animation offset for smoother performance
+            sprite.userData.animOffset = Math.random() * Math.PI * 2;
+
+            scene.add(sprite);
+            cloudParticles.push(sprite);
+        }
+
+        // Camera starting position (far away in clouds)
+        camera.position.set(0, 50, 300);
+        camera.lookAt(0, 50, -1000);
+
+        // Animation variables
+        let animationProgress = 0;
+        const animationDuration = 8; // seconds - longer journey through clouds
+        let startTime = null;
+        let animationStarted = false;
+
+        // Easing function (ease-in-out)
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        // Start animation after a short delay
+        setTimeout(() => {
+            document.getElementById('loading').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('title').classList.add('visible');
+                document.getElementById('subtitle').classList.add('visible');
+                animationStarted = true;
+                startTime = Date.now();
+            }, 500);
+        }, 1000);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Animate clouds floating (optimized)
+            const time = Date.now() * 0.0001;
+
+            for (let i = 0; i < cloudParticles.length; i++) {
+                const cloud = cloudParticles[i];
+                const offset = cloud.userData.animOffset;
+
+                cloud.position.x += Math.sin(time + offset) * 0.03;
+                cloud.position.y += Math.cos(time + offset) * 0.015;
+
+                // Recycle clouds that pass the camera
+                if (animationStarted && cloud.position.z > camera.position.z + 100) {
+                    cloud.position.z = -1200 + Math.random() * -200;
+                    cloud.position.x = Math.random() * 400 - 200;
+                    cloud.position.y = Math.random() * 200 - 50;
+                }
+            }
+
+            // Camera animation
+            if (animationStarted) {
+                const elapsed = (Date.now() - startTime) / 1000;
+                animationProgress = Math.min(elapsed / animationDuration, 1);
+                const easedProgress = easeInOutCubic(animationProgress);
+
+                // Move camera forward through clouds
+                camera.position.z = 300 - (easedProgress * 1100); // From 300 to -800
+                camera.position.y = 50 - (easedProgress * 10); // From 50 to 40 (subtle descent)
+
+                // Adjust fog density as we approach
+                scene.fog.density = 0.018 - (easedProgress * 0.012); // Less fog as we get closer
+
+                // Look at center point
+                camera.lookAt(0, 50, -1000);
+
+                // Fade out title and subtitle as we approach
+                if (animationProgress > 0.6) {
+                    const titleElement = document.getElementById('title');
+                    const subtitleElement = document.getElementById('subtitle');
+                    const fadeProgress = 1 - ((animationProgress - 0.6) / 0.4);
+                    titleElement.style.opacity = fadeProgress;
+                    subtitleElement.style.opacity = fadeProgress;
+                }
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

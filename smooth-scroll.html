@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadplex 80 - Smooth Scroll Experience</title>
+    <style>
+        :root {
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+            --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Fixed canvas background */
+        .canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .canvas-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15), transparent 70%);
+            opacity: 0.5;
+        }
+
+        /* Animated floating objects */
+        .floating-objects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            transition: transform 0.1s ease-out;
+        }
+
+        .floating-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4), rgba(139, 92, 246, 0.2));
+            filter: blur(40px);
+            animation: float linear infinite;
+            will-change: transform;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate(var(--float-x), var(--float-y)) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .floating-line {
+            position: absolute;
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+            animation: lineFloat linear infinite;
+            will-change: transform;
+        }
+
+        @keyframes lineFloat {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(var(--line-distance));
+                opacity: 0;
+            }
+        }
+
+        /* Main content wrapper */
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s var(--ease-out-expo) forwards;
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            color: #888;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s var(--ease-out-expo) 0.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Parallax sections */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .parallax-text {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            will-change: transform;
+        }
+
+        .parallax-description {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #999;
+            line-height: 1.8;
+            max-width: 800px;
+            will-change: transform;
+        }
+
+        /* Image cards */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .image-card {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+            will-change: transform;
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+
+        .image-card:hover {
+            transform: scale(1.05);
+        }
+
+        .image-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #ddd;
+        }
+
+        /* Feature list */
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .feature-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            will-change: transform, opacity;
+        }
+
+        .feature-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .feature-item:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .feature-number {
+            font-size: clamp(6rem, 12vw, 12rem);
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.3;
+        }
+
+        .feature-text h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .feature-text p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: #999;
+            line-height: 1.8;
+        }
+
+        /* Spacer */
+        .spacer {
+            height: 50vh;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: #050505;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(59, 130, 246, 0.2);
+            z-index: 1000;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        @media (max-width: 768px) {
+            .feature-item {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .feature-item:nth-child(even) {
+                direction: ltr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll progress indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <!-- Fixed background -->
+    <div class="canvas-bg"></div>
+
+    <!-- Floating animated objects -->
+    <div class="floating-objects" id="floatingObjects"></div>
+
+    <!-- Main content -->
+    <div class="content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>ABOVE THE CLOUDS</h1>
+            <p>Experience butter-smooth navigation with momentum-based scrolling</p>
+        </section>
+
+        <!-- Section 1 -->
+        <section class="section" data-scroll-section>
+            <div class="section-content">
+                <h2 class="parallax-text" data-scroll data-scroll-speed="1">
+                    Quadplex 80
+                </h2>
+                <p class="parallax-description" data-scroll data-scroll-speed="0.5">
+                    A luxury penthouse experience that rises above the city. Immerse yourself in a world where every detail is crafted for excellence, where the sky is not the limit but the beginning.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-card" data-scroll data-scroll-speed="0.8">
+                        <div class="card-content">
+                            <h3 class="card-title">Sky Lounge</h3>
+                            <p class="card-text">360° panoramic views</p>
+                        </div>
+                    </div>
+                    <div class="image-card" data-scroll data-scroll-speed="1.2">
+                        <div class="card-content">
+                            <h3 class="card-title">Private Terrace</h3>
+                            <p class="card-text">Your sanctuary in the clouds</p>
+                        </div>
+                    </div>
+                    <div class="image-card" data-scroll data-scroll-speed="0.6">
+                        <div class="card-content">
+                            <h3 class="card-title">Master Suite</h3>
+                            <p class="card-text">Luxury redefined</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="spacer"></div>
+
+        <!-- Section 2 - Features -->
+        <section class="section" data-scroll-section>
+            <div class="section-content">
+                <h2 class="parallax-text" data-scroll data-scroll-speed="1">
+                    Unparalleled Luxury
+                </h2>
+
+                <div class="feature-list">
+                    <div class="feature-item" data-scroll data-scroll-speed="0.8">
+                        <div class="feature-number">01</div>
+                        <div class="feature-text">
+                            <h3>Architectural Excellence</h3>
+                            <p>Every line, every curve, every space is designed with intention. The architecture speaks the language of modern luxury.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item" data-scroll data-scroll-speed="0.6">
+                        <div class="feature-number">02</div>
+                        <div class="feature-text">
+                            <h3>Smart Living</h3>
+                            <p>Integrated technology that anticipates your needs. Control your environment with intuitive systems that learn and adapt.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item" data-scroll data-scroll-speed="0.9">
+                        <div class="feature-number">03</div>
+                        <div class="feature-text">
+                            <h3>Sustainable Design</h3>
+                            <p>Luxury that respects the future. Energy-efficient systems and eco-conscious materials throughout.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="spacer"></div>
+
+        <!-- Section 3 -->
+        <section class="section" data-scroll-section>
+            <div class="section-content">
+                <h2 class="parallax-text" data-scroll data-scroll-speed="1.5">
+                    Your Private Sanctuary
+                </h2>
+                <p class="parallax-description" data-scroll data-scroll-speed="0.8">
+                    More than a residence, Quadplex 80 is an escape. A place where the chaos of the city fades into the distance, and tranquility becomes your constant companion.
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">Quadplex 80 - Where luxury meets the sky</p>
+        </footer>
+    </div>
+
+    <!-- Lenis Smooth Scroll Library -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script>
+        // Create floating animated objects
+        function createFloatingObjects() {
+            const container = document.getElementById('floatingObjects');
+            const particleCount = 30;
+            const lineCount = 15;
+
+            // Create floating particles
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+
+                // Random size
+                const size = Math.random() * 150 + 50;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+
+                // Random starting position
+                const startX = Math.random() * window.innerWidth;
+                const startY = Math.random() * window.innerHeight;
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+
+                // Random movement distance
+                const moveX = (Math.random() - 0.5) * 400;
+                const moveY = Math.random() * 600 + 400;
+                particle.style.setProperty('--float-x', `${moveX}px`);
+                particle.style.setProperty('--float-y', `${moveY}px`);
+
+                // Random animation duration and delay
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 10;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+
+                container.appendChild(particle);
+            }
+
+            // Create floating lines
+            for (let i = 0; i < lineCount; i++) {
+                const line = document.createElement('div');
+                line.className = 'floating-line';
+
+                // Random horizontal position
+                const startX = Math.random() * window.innerWidth;
+                line.style.left = `${startX}px`;
+                line.style.top = '0';
+
+                // Random height
+                const height = Math.random() * 150 + 50;
+                line.style.height = `${height}px`;
+
+                // Distance to travel
+                const distance = window.innerHeight + height;
+                line.style.setProperty('--line-distance', `${distance}px`);
+
+                // Random animation duration and delay
+                const duration = Math.random() * 10 + 8;
+                const delay = Math.random() * 8;
+                line.style.animationDuration = `${duration}s`;
+                line.style.animationDelay = `${delay}s`;
+
+                container.appendChild(line);
+            }
+        }
+
+        // Initialize floating objects on page load
+        createFloatingObjects();
+
+        // Initialize Lenis smooth scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        // Update scroll progress indicator
+        lenis.on('scroll', ({ scroll, limit }) => {
+            const progress = (scroll / limit) * 100;
+            document.getElementById('scrollProgress').style.width = `${progress}%`;
+        });
+
+        // Animation frame loop
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // Parallax effect on scroll
+        lenis.on('scroll', ({ scroll }) => {
+            // Parallax for floating objects based on scroll
+            const floatingContainer = document.getElementById('floatingObjects');
+            if (floatingContainer) {
+                const scrollSpeed = scroll * 0.3;
+                floatingContainer.style.transform = `translateY(${scrollSpeed}px)`;
+            }
+
+            // Parallax for text elements
+            document.querySelectorAll('[data-scroll]').forEach((element) => {
+                const speed = element.getAttribute('data-scroll-speed') || 1;
+                const rect = element.getBoundingClientRect();
+                const elementTop = rect.top + scroll;
+                const windowHeight = window.innerHeight;
+
+                // Calculate parallax offset
+                const scrollProgress = (scroll - elementTop + windowHeight) / (windowHeight + rect.height);
+                const parallaxOffset = (scrollProgress - 0.5) * 100 * speed;
+
+                if (scrollProgress > 0 && scrollProgress < 1) {
+                    element.style.transform = `translate3d(0, ${-parallaxOffset}px, 0)`;
+
+                    // Fade in effect
+                    const opacity = Math.min(1, Math.max(0, scrollProgress * 2));
+                    element.style.opacity = opacity;
+                }
+            });
+        });
+
+        // Smooth anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    lenis.scrollTo(target, {
+                        offset: 0,
+                        duration: 2,
+                    });
+                }
+            });
+        });
+
+        // Recreate floating objects on window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const container = document.getElementById('floatingObjects');
+                container.innerHTML = '';
+                createFloatingObjects();
+            }, 500);
+        });
+
+        // Stop scroll on specific conditions (optional)
+        // lenis.stop();
+        // lenis.start();
+    </script>
+</body>
+</html>

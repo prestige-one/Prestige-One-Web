@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenis Smooth Scrolling Example</title>
+    
+    <style>
+        /* Recommended CSS for Lenis, ensuring compatibility and performance */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        /* Basic styling to create substantial, visible sections */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .section {
+            /* Make each section take up the full viewport height */
+            height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        #section1 { background-color: #4b6cb7; }
+        #section2 { background-color: #182848; }
+        #section3 { background-color: #ff5f6d; }
+        #section4 { background-color: #ffc371; }
+        #section5 { background-color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+    <div class="section" id="section1">
+        <h1>Welcome to the Smooth Scroll Demo</h1>
+        <p>Scroll down to feel the **Lenis** effect.</p>
+    </div>
+    <div class="section" id="section2">
+        <h1>Section 2: Butter Smooth</h1>
+    </div>
+    <div class="section" id="section3">
+        <h1>Section 3: High Performance</h1>
+    </div>
+    <div class="section" id="section4">
+        <h1>Section 4: Open Source</h1>
+    </div>
+    <div class="section" id="section5">
+        <h1>Section 5: End of Content</h1>
+    </div>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.2.0/dist/lenis.min.js"></script>
+
+    <script>
+        // 2. Initialize Lenis
+        const lenis = new Lenis({
+            // Optional: Adjust the 'lerp' value for smoothness. 
+            // Lower values (e.g., 0.05) make the scroll ultra-smooth but slower.
+            // lerp: 0.1, 
+            // Optional: Adjust the 'wheelMultiplier' for scroll speed.
+            // wheelMultiplier: 1.0, 
+        });
+
+        // 3. Set up the Request Animation Frame (raf) loop
+        // This links the Lenis scroll calculations to the browser's render loop for optimal performance.
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+    </script>
+</body>
+</html>
