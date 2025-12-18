@@ -27,19 +27,19 @@ const BuildingExplorer = () => {
   const [currentSection, setCurrentSection] = useState('intro')
   const [isLoading, setIsLoading] = useState(true)
 
-  // Building configuration - using local resources from public folder
-  const buildingModelUrls = [
-    '/resources/burj_crown_emaar/scene.gltf',
-    '/resources/Untitled.gltf',
-    '/high_rise_building_gltf/scene.gltf',
-    '/high_rise_building_gltf/scene.gltf',
-    '/high_rise_building_gltf/scene.gltf',
-    '/high_rise_building_gltf/scene.gltf',
-    '/high_rise_building_gltf/scene.gltf',
-    '/high_rise_building_gltf/scene.gltf',
-    '/high_rise_building_gltf/scene.gltf',
-    '/high_rise_building_gltf/scene.gltf',
-    '/high_rise_building_gltf/scene.gltf'
+  // Building configuration - prefer local `public/` paths, fall back to hosted remote URLs
+  const buildingModelSources = [
+    { local: '/resources/burj_crown_emaar/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/burj_crown_emaar/scene.gltf' },
+    { local: '/resources/Untitled.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/resources/Untitled.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' },
+    { local: '/high_rise_building_gltf/scene.gltf', remote: 'https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/high_rise_building_gltf/scene.gltf' }
   ]
 
   const buildingNames = [
@@ -100,6 +100,22 @@ const BuildingExplorer = () => {
     building11: new THREE.Vector3(1500, 50, -600)
   }
 
+  // React to currentSection changes: update scales, visibility and orbit controls
+  useEffect(() => {
+    // Update building scales and visibility when section changes
+    updateBuildingScales()
+    updateBuildingVisibility()
+
+    // Enable/disable orbit controls based on section
+    if (currentSection.startsWith('building')) {
+      const idx = parseInt(currentSection.replace('building', '')) - 1
+      enableOrbitControls(cameraTargets[currentSection], idx)
+    } else if (currentSection === 'main' || currentSection === 'intro') {
+      disableOrbitControls()
+    }
+    // ensure hover/visibility updates
+  }, [currentSection])
+
   const cameraTargets: { [key: string]: THREE.Vector3 } = {
     intro: new THREE.Vector3(0, 0, 0),
     main: new THREE.Vector3(0, 0, -900),
@@ -114,6 +130,23 @@ const BuildingExplorer = () => {
     building9: new THREE.Vector3(900, 0, -900),
     building10: new THREE.Vector3(1200, 0, -900),
     building11: new THREE.Vector3(1500, 0, -900)
+  }
+
+  // Inline background styles matching `5s.html` so section backgrounds load correctly
+  const backgroundStyles: { [key: string]: React.CSSProperties } = {
+    bg_intro: { background: 'linear-gradient(to bottom, #87CEEB 0%, #5D9FD5 50%, #4A8FC7 100%)' },
+    bg_main: { background: 'linear-gradient(to bottom, #87CEEB 0%, #5D9FD5 50%, #4A8FC7 100%)' },
+    bg_building1: { background: "url('https://s3.me-central-1.amazonaws.com/files.prestigeone.ae/wp-content/uploads/2025/02/02180427/Vista-Construction-Update-31.webp') center/cover, linear-gradient(135deg, #667eea 0%, #764ba2 100%)", backgroundAttachment: 'fixed' },
+    bg_building2: { background: "url('https://s3.me-central-1.amazonaws.com/files.prestigeone.ae/wp-content/uploads/2024/09/22130625/WhatsApp-Image-2024-09-22-at-6.30.45%E2%80%AFPM.webp') center/cover, linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", backgroundAttachment: 'fixed' },
+    bg_building3: { background: "url('https://s3.me-central-1.amazonaws.com/files.prestigeone.ae/wp-content/uploads/2025/07/16155843/Berkeley-Square-Facade-Night-View-3-scaled-1.webp') center/cover, linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", backgroundAttachment: 'fixed' },
+    bg_building4: { background: "url('https://s3.me-central-1.amazonaws.com/files.prestigeone.ae/wp-content/uploads/2025/07/16160025/Berkeley-Square-Kids-Area-Night-scaled-1.webp') center/cover, linear-gradient(135deg, #fa709a 0%, #fee140 100%)", backgroundAttachment: 'fixed' },
+    bg_building5: { background: "url('https://images.unsplash.com/photo-1557683311-eac922347aa1?w=1920&q=80') center/cover, linear-gradient(135deg, #30cfd0 0%, #330867 100%)", backgroundAttachment: 'fixed' },
+    bg_building6: { background: "url('https://wordpress-1188165-5928879.cloudwaysapps.com/3js/2/vista.webp') center/cover, linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", backgroundAttachment: 'fixed' },
+    bg_building7: { background: "url('https://s3.me-central-1.amazonaws.com/files.prestigeone.ae/wp-content/uploads/2022/08/21155318/WhatsApp-Image-2024-09-21-at-8.39.15%E2%80%AFPM-1.webp') center/cover, linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)", backgroundAttachment: 'fixed' },
+    bg_building8: { background: "url('https://prestigeone.ae/wp-content/uploads/2024/08/mbr-city-1.webp') center/cover, linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", backgroundAttachment: 'fixed' },
+    bg_building9: { background: "url('https://s3.me-central-1.amazonaws.com/files.prestigeone.ae/wp-content/uploads/2024/08/28165048/palm-jumeirah-scaled.webp') center/cover, linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)", backgroundAttachment: 'fixed' },
+    bg_building10: { background: "url('https://s3.me-central-1.amazonaws.com/files.prestigeone.ae/wp-content/uploads/2024/09/22130541/WhatsApp-Image-2024-09-22-at-6.30.45%E2%80%AFPM-1.webp') center/cover, linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)", backgroundAttachment: 'fixed' },
+    bg_building11: { background: "url('https://s3.me-central-1.amazonaws.com/files.prestigeone.ae/wp-content/uploads/2024/09/22130541/WhatsApp-Image-2024-09-22-at-6.30.45%E2%80%AFPM-1.webp') center/cover, linear-gradient(135deg, #f77062 0%, #fe5196 100%)", backgroundAttachment: 'fixed' }
   }
 
   useEffect(() => {
@@ -166,12 +199,16 @@ const BuildingExplorer = () => {
     controls.screenSpacePanning = false
     orbitControlsRef.current = controls
 
-    // Load cloud texture and create clouds
+    // Load cloud texture and create clouds (use external source to avoid missing asset issues)
     const textureLoader = new THREE.TextureLoader()
     textureLoader.load(
-      '/cloud10.png',
+      'https://mrdoob.com/lab/javascript/webgl/clouds/cloud10.png',
       (texture) => {
         createClouds(texture, scene)
+      },
+      undefined,
+      (err) => {
+        console.error('Cloud texture load error (external):', err)
       }
     )
 
@@ -310,40 +347,62 @@ const BuildingExplorer = () => {
   const loadBuildings = async (scene: THREE.Scene) => {
     const loader = new GLTFLoader()
 
-    for (let i = 0; i < buildingModelUrls.length; i++) {
-      try {
-        const gltf = await loader.loadAsync(buildingModelUrls[i])
-        const building = gltf.scene
-        building.position.set(buildingPositions[i].x, buildingPositions[i].y, buildingPositions[i].z)
+    for (let i = 0; i < buildingModelSources.length; i++) {
+      const src = buildingModelSources[i]
+      let gltf: any = null
+      let usedUrl = ''
 
-        const introScale = buildingScalesConfig[i][0]
-        building.scale.set(introScale, introScale, introScale)
-        building.userData = {
-          buildingId: i + 1,
-          buildingIndex: i,
-          baseScale: introScale
+      // Try local first, then remote fallback via our server-side proxy to avoid CORS
+      const proxyUrl = `/api/proxy?url=${encodeURIComponent(src.remote)}`
+      const tryUrls = [src.local, proxyUrl]
+      for (const url of tryUrls) {
+        try {
+          usedUrl = url
+          gltf = await loader.loadAsync(url)
+          break
+        } catch (err) {
+          console.warn(`GLTF load failed for ${url}, trying next if available...`, err)
+          gltf = null
         }
+      }
 
-        // Initially hidden
-        building.traverse((node) => {
-          if ((node as THREE.Mesh).isMesh) {
-            const mesh = node as THREE.Mesh
-            if (mesh.material) {
-              const material = mesh.material as THREE.MeshStandardMaterial
-              material.transparent = true
-              material.opacity = 0
-            }
+      if (gltf) {
+        try {
+          const building = gltf.scene
+          building.position.set(buildingPositions[i].x, buildingPositions[i].y, buildingPositions[i].z)
+
+          const introScale = buildingScalesConfig[i][0]
+          building.scale.set(introScale, introScale, introScale)
+          building.userData = {
+            buildingId: i + 1,
+            buildingIndex: i,
+            baseScale: introScale
           }
-        })
 
-        scene.add(building)
-        buildingsRef.current[i] = building
-        buildingScalesRef.current[i] = introScale
-        console.log(`✓ Building ${i + 1} (${buildingNames[i]}) loaded successfully`)
-      } catch (error) {
-        console.error(`✗ Failed to load building ${i + 1} (${buildingNames[i]}):`, error)
-        console.error(`  URL: ${buildingModelUrls[i]}`)
-        console.error(`  This may be due to CORS restrictions. Check server CORS headers.`)
+          // Ensure meshes are visible and handle transparency safely
+          building.traverse((node) => {
+            if ((node as THREE.Mesh).isMesh) {
+              const mesh = node as THREE.Mesh
+              if (mesh.material) {
+                const material = mesh.material as any
+                material.transparent = true
+                material.opacity = 0
+                material.side = THREE.DoubleSide
+                material.depthWrite = true
+                material.depthTest = true
+              }
+            }
+          })
+
+          scene.add(building)
+          buildingsRef.current[i] = building
+          buildingScalesRef.current[i] = introScale
+          console.log(`✓ Building ${i + 1} (${buildingNames[i]}) loaded from ${usedUrl}`)
+        } catch (err) {
+          console.error(`Error processing GLTF for building ${i + 1}:`, err)
+        }
+      } else {
+        console.error(`✗ Failed to load building ${i + 1} (${buildingNames[i]}) from local or remote sources`)
 
         // Create a placeholder cube for failed buildings
         const geometry = new THREE.BoxGeometry(50, 100, 50)
@@ -373,42 +432,45 @@ const BuildingExplorer = () => {
   const animateClouds = () => {
     if (!cloudMesh1Ref.current || !cloudMesh2Ref.current) return
 
-    // Only show clouds for Hilton project (building5)
-    const showClouds = currentSection === 'building5'
+    // Show clouds in intro, main, and building5 sections (matching 5s.html exactly)
+    const showClouds = currentSection === 'intro' || currentSection === 'main' || currentSection === 'building5'
     cloudMesh1Ref.current.visible = showClouds
     cloudMesh2Ref.current.visible = showClouds
 
     if (!showClouds) return
 
-    // Building 5 skybox effect
+    // Building 5 skybox effect - clouds follow camera position but NOT rotation
     if (currentSection === 'building5' && orbitEnabledRef.current && cameraRef.current) {
-      cloudMesh1Ref.current.rotation.copy(cameraRef.current.rotation)
-      cloudMesh2Ref.current.rotation.copy(cameraRef.current.rotation)
-
+      // Position clouds relative to camera so they feel like a distant sky
       const cameraDirection = new THREE.Vector3()
       cameraRef.current.getWorldDirection(cameraDirection)
-      cameraDirection.multiplyScalar(-2000)
+      cameraDirection.multiplyScalar(-2000) // Distance behind camera
 
       cloudMesh1Ref.current.position.set(
         cameraRef.current.position.x + cameraDirection.x,
         cameraRef.current.position.y + cameraDirection.y,
-        cloudMesh1Ref.current.position.z
+        cloudMesh1Ref.current.position.z // Keep Z for drift animation
       )
       cloudMesh2Ref.current.position.set(
         cameraRef.current.position.x + cameraDirection.x,
         cameraRef.current.position.y + cameraDirection.y,
-        cloudMesh2Ref.current.position.z
+        cloudMesh2Ref.current.position.z // Keep Z for drift animation
       )
+
+      // Reset rotations so clouds remain visually fixed and do NOT rotate with camera
+      cloudMesh1Ref.current.rotation.set(0, 0, 0)
+      cloudMesh2Ref.current.rotation.set(0, 0, 0)
     } else {
+      // For intro and main: Lock cloud rotation to prevent any rotation
       cloudMesh1Ref.current.rotation.set(0, 0, 0)
       cloudMesh2Ref.current.rotation.set(0, 0, 0)
     }
 
-    // Cloud movement - only for building5
+    // Cloud drift animation (forward movement)
     cloudMesh1Ref.current.position.z += 0.8
     cloudMesh2Ref.current.position.z += 0.8
 
-    // Loop clouds
+    // Loop clouds when they drift too far
     if (cloudMesh1Ref.current.position.z > 8000) {
       cloudMesh1Ref.current.position.z = cloudMesh2Ref.current.position.z - 8000
     }
@@ -783,13 +845,22 @@ const BuildingExplorer = () => {
       <div className={styles.buildingLabel} id="buildingLabel"></div>
 
       {/* Section Backgrounds */}
-      <div className={`${styles.sectionBackground} ${currentSection === 'intro' ? styles.active : ''}`} id="bg_intro" />
-      <div className={`${styles.sectionBackground} ${currentSection === 'main' ? styles.active : ''}`} id="bg_main" />
+      <div
+        className={`${styles.sectionBackground} ${currentSection === 'intro' ? styles.active : ''}`}
+        id="bg_intro"
+        style={backgroundStyles.bg_intro}
+      />
+      <div
+        className={`${styles.sectionBackground} ${currentSection === 'main' ? styles.active : ''}`}
+        id="bg_main"
+        style={backgroundStyles.bg_main}
+      />
       {[...Array(11)].map((_, i) => (
         <div
           key={i}
           className={`${styles.sectionBackground} ${currentSection === `building${i + 1}` ? styles.active : ''}`}
           id={`bg_building${i + 1}`}
+          style={backgroundStyles[`bg_building${i + 1}`]}
         />
       ))}
     </>
