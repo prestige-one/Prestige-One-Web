@@ -528,9 +528,17 @@ const BuildingExplorer = () => {
       let targetOpacity = 0
 
       if (currentSection === 'main') {
+        // Show all buildings on main page
         targetOpacity = 1
-      } else if (currentSection === `building${index + 1}`) {
-        targetOpacity = 1
+      } else if (currentSection.startsWith('building')) {
+        // Extract building number from section name (e.g., 'building1' -> 1)
+        const currentBuildingNum = parseInt(currentSection.replace('building', ''))
+        // Only show the clicked building (index + 1 matches building number)
+        if (index + 1 === currentBuildingNum) {
+          targetOpacity = 1
+        } else {
+          targetOpacity = 0
+        }
       }
 
       building.traverse((node) => {
